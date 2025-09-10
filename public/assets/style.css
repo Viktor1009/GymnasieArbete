@@ -1,1 +1,11 @@
-/*# sourceMappingURL=style.css.map */
+* {
+  padding: 0px;
+  margin: 0px;
+}
+
+footer {
+  background-color: #1a1b26;
+}
+footer h1, footer h2, footer h3, footer h4, footer h5, footer h6 {
+  color: aliceblue;
+}/*# sourceMappingURL=style.css.map */
