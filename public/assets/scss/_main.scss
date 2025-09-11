@@ -2,7 +2,7 @@
     padding: 0px;
     margin: 0px;
 
-    & body {
+    & body.no-game {
         display: flex;
         background-color: $main-color;
         & h1, h2, h3, h4, h5, h6 {
