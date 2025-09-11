@@ -1,13 +1,18 @@
 * {
     padding: 0px;
     margin: 0px;
-}
 
-footer {
-    align-self: flex-end;
-    background-color: #1a1b26;
-
-    & h1, h2, h3, h4, h5, h6 {
-        color: aliceblue;
+    & body {
+        display: flex;
+        background-color: #24283b;
+        & h1, h2, h3, h4, h5, h6 {
+            color: aliceblue;
+        }
+        & footer {
+            align-self: flex-end; // The footer might not appear att the bottom but that is because the body isn't high enough
+            background-color: #1a1b26;
+        }
     }
+    
 }
+

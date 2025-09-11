@@ -2,10 +2,14 @@
   padding: 0px;
   margin: 0px;
 }
-
-footer {
-  background-color: #1a1b26;
+* body {
+  display: flex;
+  background-color: #24283b;
 }
-footer h1, footer h2, footer h3, footer h4, footer h5, footer h6 {
+* body h1, * body h2, * body h3, * body h4, * body h5, * body h6 {
   color: aliceblue;
+}
+* body footer {
+  align-self: flex-end;
+  background-color: #1a1b26;
 }/*# sourceMappingURL=style.css.map */
