@@ -2,14 +2,34 @@
   padding: 0px;
   margin: 0px;
 }
-* body {
+
+body.no-game {
   display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   background-color: #24283b;
 }
-* body h1, * body h2, * body h3, * body h4, * body h5, * body h6 {
+
+h1, h2, h3, h4, h5, h6 {
   color: aliceblue;
 }
-* body footer {
-  align-self: flex-end;
+
+header {
+  flex: 0 0 auto;
+}
+
+section#Contributors {
+  flex: 1 0 auto;
+}
+
+footer {
+  flex: 0 0 auto;
   background-color: #1a1b26;
-}/*# sourceMappingURL=style.css.map */
+}
+
+/*.triangle {
+    width: 0;
+    height: 0;
+    border: solid 30px;
+    border-color: transparent transparent black transparent;
+}*//*# sourceMappingURL=style.css.map */

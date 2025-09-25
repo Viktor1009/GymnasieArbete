@@ -1,3 +1,5 @@
+@use "variable";
+
 * {
     padding: 0px;
     margin: 0px;    
@@ -6,7 +8,7 @@ body.no-game {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-color: $main-color;
+    background-color: variable.$main-color;
 }
 h1, h2, h3, h4, h5, h6 {
     color: aliceblue;
@@ -19,5 +21,5 @@ section#Contributors {
 }
 footer {
     flex: 0 0 auto;
-    background-color: $footer-color;
+    background-color: variable.$footer-color;
 }
