@@ -4,12 +4,20 @@
 }
 body.no-game {
     display: flex;
+    flex-direction: column;
+    min-height: 100vh;
     background-color: $main-color;
 }
-& h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6 {
     color: aliceblue;
 }
-& footer {
-    align-self: flex-end; // The footer might not appear att the bottom but that is because the body isn't tall enough
+header {
+    flex: $flex-fill;
+}
+section#Contributors {
+    flex: 1 0 auto;
+}
+footer {
+    flex: $flex-fill;
     background-color: $footer-color;
 }
