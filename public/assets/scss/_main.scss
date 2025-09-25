@@ -12,12 +12,12 @@ h1, h2, h3, h4, h5, h6 {
     color: aliceblue;
 }
 header {
-    flex: $flex-fill;
+    flex: 0 0 auto;
 }
 section#Contributors {
     flex: 1 0 auto;
 }
 footer {
-    flex: $flex-fill;
+    flex: 0 0 auto;
     background-color: $footer-color;
 }
