@@ -2,6 +2,7 @@ const triangleSpeed = -7;
 setInterval(spawnTriangle, 1500);
 
 function spawnTriangle() {
+    console.log("1triangle!")
     const triangle = document.createElement("div");
     triangle.className = "triangle";
 
@@ -30,3 +31,12 @@ function spawnTriangle() {
     
 }
 
+document.body.onkeyup = function(e) {
+  if (e.key == " " ||
+      e.code == "Space" ||      
+      e.keyCode == 32      
+  ) {
+    //your code
+    console.log("1jump!")
+  }
+}
