@@ -30,7 +30,7 @@ function spawnTriangle() {
     requestAnimationFrame(moveTriangle);
     
 }
-
+// https://stackoverflow.com/questions/24386354/execute-js-code-after-pressing-the-spacebar
 document.body.onkeyup = function(e) {
   if (e.key == " " ||
       e.code == "Space" ||      
