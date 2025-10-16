@@ -1,0 +1,99 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trianglar med rörlig bakgrund</title>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+
+    body {
+      background: url("https://www.transparenttextures.com/patterns/hexellence.png") repeat;
+      background-size: 400px 400px;
+      position: relative;
+    }
+
+    .triangle {
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 35px solid red;
+      position: absolute;
+      filter: drop-shadow(0 0 3px white);
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      pointer-events: none;
+      z-index: 10;
+    }
+
+    .overlay img {
+      width: 200px;
+      opacity: 0.9;
+      filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+    }
+
+    /*
+    fixa så att triangeln även blir snygg
+    */
+
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a7/React-icon.svg/512px-React-icon.svg.png" alt="Statisk bild">
+  </div>
+
+  <script>
+    const triangleSpeed = -12; // Alla trianglar rör sig i samma hastighet
+    const bgSpeed = -0.3; // långsam bakgrundsrörelse
+
+    
+
+    function spawnTriangle() {
+      const tri = document.createElement("div");
+      tri.className = "triangle";
+
+      const hue = Math.floor(Math.random() * 360);
+      tri.style.borderBottomColor = `hsl(${hue}, 80%, 60%)`;
+
+      const y = window.innerHeight / 2;
+      tri.style.top = `${y}px`;
+
+      // Start utanför höger sida
+      let x = window.innerWidth + 50;
+      tri.style.left = `${x}px`;
+
+      document.body.appendChild(tri);
+
+      function move() {
+        x += triangleSpeed;
+        tri.style.left = `${x}px`;
+
+        if (x > -50) {
+          requestAnimationFrame(move);
+        } else {
+          tri.remove();
+        }
+      }
+
+      requestAnimationFrame(move);
+    }
+
+    // Skapa en ny triangel var 1.5 sekund
+    setInterval(spawnTriangle, 1500);
+
+    // Starta bakgrundens rörelse
+    animateBackground();
+  </script>
+</body>
+</html>

@@ -16,33 +16,12 @@
     height: 50px;
     border: 3px solid hotpink;
 }
-
-.left {
-    position: absolute;
-    width: 50px;
-    height: 0;
-    left: 100px;
-    top: 100px;
-    border: 1px solid red;
-    transform: rotate(-70deg);
-}
-.right {
-    position: absolute;
-    width: 50px;
-    height: 0;
-    left: 117.5px;
-    top: 100px;
-    border: 1px solid red;
-    transform: rotate(70deg);
-}
-/*
-width = hypotenusan
-närligande / hypotenusan = sin(v)
-närligande = sin (v) * hypotenusan
-
-närligande i denna case är botten
-så sin (v) = vinkeln mellan hypotenusan och botten
-*/
-#space {
-    height: 100px;
-}
+.triangle {
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 35px solid red;
+      position: absolute;
+      filter: drop-shadow(0 0 3px white);
+    }
