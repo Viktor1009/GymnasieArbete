@@ -1,42 +1,70 @@
-const triangleSpeed = -7;
-setInterval(spawnTriangle, 1500);
+window.addEventListener("DOMContentLoaded", () => {
+    triangle();
+    player();
+});
 
-function spawnTriangle() {
+function triangle() {
+    const triangleSpeed = -7;
+    setInterval(spawnTriangle, 1500);
     console.log("1triangle!")
-    const triangle = document.createElement("div");
-    triangle.className = "triangle";
 
-    const y = window.innerHeight * 0.15;
-    triangle.style.bottom = `${y}px`;
-    let x = window.innerWidth + 20;
-    triangle.style.left = `${x}px`;
+    function spawnTriangle() {
+        const triangle = document.createElement("div");
+        triangle.className = "triangle";
 
-    document.body.appendChild(triangle);
-
-    function moveTriangle() {
-        x += triangleSpeed;
+        const y = window.innerHeight * 0.15;
+        triangle.style.bottom = `${y}px`;
+        let x = window.innerWidth + 20;
         triangle.style.left = `${x}px`;
 
-        if (x > -50)
-        {
-            requestAnimationFrame(moveTriangle);
-        } 
-        else 
-        {
-            triangle.remove();
-        }
-    }
+        document.body.appendChild(triangle);
 
-    requestAnimationFrame(moveTriangle);
-    
+        function moveTriangle() {
+            x += triangleSpeed;
+            triangle.style.left = `${x}px`;
+
+            if (x > -50)
+            {
+                requestAnimationFrame(moveTriangle);
+            } 
+            else 
+            {
+                triangle.remove();
+            }
+        }
+
+        requestAnimationFrame(moveTriangle);
+        
+    }
 }
-// https://stackoverflow.com/questions/24386354/execute-js-code-after-pressing-the-spacebar
-document.body.onkeyup = function(e) {
-  if (e.key == " " ||
-      e.code == "Space" ||      
-      e.keyCode == 32      
-  ) {
-    //your code
-    console.log("1jump!")
-  }
+
+
+function player() {
+    const player = document.getElementById("player");
+    let y = parseFloat(getComputedStyle(player).bottom);
+    const jumpHeight = 160;
+    const jumpSpeed = 10;
+    const gravity = 7;
+    let isJumping = false;
+
+    console.log("player!");
+
+    document.addEventListener("click", (event) => {
+    if (event.button === 0) {
+        console.log("click!");
+        playerJump();
+    }
+    });
+
+    document.addEventListener("keydown", (event) => {
+    if (event.code === "Space") {
+        event.preventDefault();
+        console.log("space!");
+        playerJump();
+    }
+    });
+
+    function playerJump() {
+        
+    }
 }

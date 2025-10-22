@@ -1,0 +1,40 @@
+
+        const startY = y;
+        const peakY = startY + jumpHeight;
+        let goingUp = true;
+
+        function movePlayer() {
+            if (goingUp) {
+                y += jumpSpeed;
+                if (y >= peakY) {
+                    goingUp = false;
+                }
+            } else {
+                y -= gravity;
+                if (y <= startY) {
+                    y = startY;
+                    player.style.bottom = `${y}px`;
+                    return;
+                }
+            }
+
+            player.style.bottom = `${y}px`;
+            requestAnimationFrame(movePlayer);
+        }
+
+        requestAnimationFrame(movePlayer);
+
+
+fabricate an issiue with dubble jumping solve by adding
+
+if (isJumping)
+{
+    return;
+} 
+isJumping = true;
+
+at the top and
+
+isJumping = false;
+
+inside the moveplayer function right below y = startY
