@@ -65,5 +65,24 @@ function player() {
 
     function playerJump() {
         
+        const startY = y;
+        const peakY = startY + jumpHeight;
+        let goingUp = true;
+
+        function movePlayer() {
+            if (goingUp) {
+                y += jumpSpeed;
+                if (y >= peakY) {
+                    goingUp = false;
+                }
+            } else {
+                
+            }
+
+            player.style.bottom = `${y}px`;
+            requestAnimationFrame(movePlayer);
+        }
+
+        requestAnimationFrame(movePlayer);
     }
 }
