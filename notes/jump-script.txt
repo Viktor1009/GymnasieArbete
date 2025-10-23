@@ -26,13 +26,11 @@
 
 
 fabricate an issiue with dubble jumping solve by adding
-
 if (isJumping)
 {
     return;
 } 
 isJumping = true;
-
 at the top and
 
 isJumping = false;

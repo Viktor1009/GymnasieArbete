@@ -45,7 +45,6 @@ function player() {
     const jumpHeight = 160;
     const jumpSpeed = 10;
     const gravity = 7;
-    let isJumping = false;
 
     console.log("player!");
 
