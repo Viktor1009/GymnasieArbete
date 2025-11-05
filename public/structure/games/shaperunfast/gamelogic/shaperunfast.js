@@ -1,6 +1,7 @@
 window.addEventListener("DOMContentLoaded", () => {
     triangle();
     player();
+    points();
 });
 
 function triangle() {
@@ -38,13 +39,13 @@ function triangle() {
     }
 }
 
-
 function player() {
     const player = document.getElementById("player");
     let y = parseFloat(getComputedStyle(player).bottom);
     const jumpHeight = 160;
     const jumpSpeed = 10;
     const gravity = 7;
+    var isJumping = false;
 
     console.log("player!");
 
@@ -64,7 +65,11 @@ function player() {
     });
 
     function playerJump() {
-        
+        if (isJumping)
+        {
+            return;
+        } 
+        isJumping = true;
         const startY = y;
         const peakY = startY + jumpHeight;
         let goingUp = true;
@@ -79,6 +84,7 @@ function player() {
                 y -= gravity;
                 if (y <= startY) {
                     y = startY;
+                    isJumping = false;
                     player.style.bottom = `${y}px`;
                     return;
                 }
@@ -90,4 +96,9 @@ function player() {
 
         requestAnimationFrame(movePlayer);
     }
+}
+
+function points() {
+    const player = getElementById(player)
+    
 }
