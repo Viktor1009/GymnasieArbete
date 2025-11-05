@@ -76,7 +76,12 @@ function player() {
                     goingUp = false;
                 }
             } else {
-                
+                y -= gravity;
+                if (y <= startY) {
+                    y = startY;
+                    player.style.bottom = `${y}px`;
+                    return;
+                }
             }
 
             player.style.bottom = `${y}px`;
