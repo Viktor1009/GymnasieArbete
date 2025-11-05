@@ -1,5 +1,0 @@
-
-
-isJumping = false;
-
-inside the moveplayer function right below y = startY

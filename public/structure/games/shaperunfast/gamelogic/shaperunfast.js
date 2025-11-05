@@ -4,6 +4,11 @@ window.addEventListener("DOMContentLoaded", () => {
     points();
 });
 
+function points() {
+    const player = getElementById(player)
+    
+}
+
 function triangle() {
     const triangleSpeed = -7;
     setInterval(spawnTriangle, 1500);
@@ -96,9 +101,4 @@ function player() {
 
         requestAnimationFrame(movePlayer);
     }
-}
-
-function points() {
-    const player = getElementById(player)
-    
 }

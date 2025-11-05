@@ -1,0 +1,242 @@
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>test</title>
+  <style>
+    * {
+      padding: 0px;
+      margin: 0px;
+    }
+
+    body.no-game {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      background-color: #24283b;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      color: aliceblue;
+    }
+
+    header {
+      flex: 0 0 auto;
+    }
+
+    section#mainPage {
+      flex: 1 0 auto;
+    }
+
+    footer {
+      flex: 0 0 auto;
+      background-color: #1a1b26;
+      display: flex;
+      padding-left: 10%;
+      padding-right: 10%;
+    }
+
+    footer div {
+      flex: 1;
+    }
+
+    div.socials {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+
+    div.socials div {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .socials-container {
+      width: 30px;
+      height: 30px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .socials-container img {
+      width: 100%;
+      height: 100%;
+      -o-object-fit: contain;
+        object-fit: contain;
+    }
+
+    #frontPageImage {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #frontPageImage img {
+      width: 50%;
+    }
+
+    #shaperunfast-viewport {
+      background-color: grey;
+    }
+
+    #baseFloor {
+      border: 3px solid black;
+      position: absolute;
+      width: 100vw;
+      top: 85%;
+      left: 0;
+    }
+
+    #player {
+      position: absolute;
+      bottom: 15%;
+      left: 20%;
+      width: 50px;
+      height: 50px;
+      border: 3px solid hotpink;
+    }
+
+    .triangle {
+      width: 0;
+      height: 0;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+      border-bottom: 35px solid red;
+      position: absolute;
+    }/*# sourceMappingURL=style.css.map */
+  </style>
+</head>
+<body>
+  <div id="player"></div>
+  <div id="score">0</div>
+  <script>
+    window.addEventListener("DOMContentLoaded", () => {
+    const scoreSystem = points();
+    triangle(scoreSystem);
+    player();
+});
+
+function points() {
+    let score = 0;
+
+    function updateScoreDisplay() {
+        const scoreDiv = document.getElementById("score");
+        if (scoreDiv) {
+            scoreDiv.textContent = score;
+        }
+    }
+
+    function addPoint() {
+        score++;
+        updateScoreDisplay();
+    }
+
+    updateScoreDisplay();
+
+    // Returnera en funktion som andra kan anropa
+    return {
+        addPoint
+    };
+}
+
+function triangle(scoreSystem) {
+    const triangleSpeed = -7;
+    const spawnInterval = 1500;
+    setInterval(spawnTriangle, spawnInterval);
+    console.log("triangle!");
+
+    function spawnTriangle() {
+        const triangle = document.createElement("div");
+        triangle.className = "triangle";
+
+        const y = window.innerHeight * 0.15;
+        triangle.style.bottom = `${y}px`;
+        let x = window.innerWidth + 20;
+        triangle.style.left = `${x}px`;
+
+        document.body.appendChild(triangle);
+
+        const playerElement = document.getElementById("player");
+        const playerRect = playerElement.getBoundingClientRect();
+        let counted = false;
+
+        function moveTriangle() {
+            x += triangleSpeed;
+            triangle.style.left = `${x}px`;
+
+            const triangleRect = triangle.getBoundingClientRect();
+
+            // Om triangeln passerar spelaren
+            if (!counted && triangleRect.right < playerRect.left) {
+                scoreSystem.addPoint();
+                counted = true;
+            }
+
+            if (x > -50) {
+                requestAnimationFrame(moveTriangle);
+            } else {
+                triangle.remove();
+            }
+        }
+
+        requestAnimationFrame(moveTriangle);
+    }
+}
+
+function player() {
+    const player = document.getElementById("player");
+    let y = parseFloat(getComputedStyle(player).bottom);
+    const jumpHeight = 160;
+    const jumpSpeed = 10;
+    const gravity = 7;
+    let isJumping = false;
+
+    console.log("player ready!");
+
+    document.addEventListener("click", (event) => {
+        if (event.button === 0) {
+            playerJump();
+        }
+    });
+
+    document.addEventListener("keydown", (event) => {
+        if (event.code === "Space") {
+            event.preventDefault();
+            playerJump();
+        }
+    });
+
+    function playerJump() {
+        if (isJumping) return;
+
+        isJumping = true;
+        const startY = y;
+        const peakY = startY + jumpHeight;
+        let goingUp = true;
+
+        function movePlayer() {
+            if (goingUp) {
+                y += jumpSpeed;
+                if (y >= peakY) goingUp = false;
+            } else {
+                y -= gravity;
+                if (y <= startY) {
+                    y = startY;
+                    isJumping = false;
+                    player.style.bottom = `${y}px`;
+                    return;
+                }
+            }
+
+            player.style.bottom = `${y}px`;
+            requestAnimationFrame(movePlayer);
+        }
+
+        requestAnimationFrame(movePlayer);
+    }
+}
+
+  </script>
+</body>
+</html>
