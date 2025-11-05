@@ -122,20 +122,17 @@ function points() {
 
     function updateScoreDisplay() {
         const scoreDiv = document.getElementById("score");
-        if (scoreDiv) {
+        if (scoreDiv) 
+        {
             scoreDiv.textContent = score;
         }
     }
-
     function addPoint() {
         score++;
         updateScoreDisplay();
     }
-
     updateScoreDisplay();
-
-    // Returnera en funktion som andra kan anropa
-    return {
+    return { // Returnera en funktion som andra kan anropa
         addPoint
     };
 }
@@ -157,23 +154,21 @@ function triangle(scoreSystem) {
 
         document.body.appendChild(triangle);
 
-        const playerElement = document.getElementById("player");
-        const playerRect = playerElement.getBoundingClientRect();
-        let counted = false;
-
         function moveTriangle() {
             x += triangleSpeed;
             triangle.style.left = `${x}px`;
-
+            
+            const playerElement = document.getElementById("player");
+            const playerRect = playerElement.getBoundingClientRect();
             const triangleRect = triangle.getBoundingClientRect();
 
             // Om triangeln passerar spelaren
-            if (!counted && triangleRect.right < playerRect.left) {
+            if (triangleRect.right < playerRect.left) 
+            {
                 scoreSystem.addPoint();
-                counted = true;
             }
 
-            if (x > -50) {
+            if (x > -20) {
                 requestAnimationFrame(moveTriangle);
             } else {
                 triangle.remove();

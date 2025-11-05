@@ -1,15 +1,30 @@
 window.addEventListener("DOMContentLoaded", () => {
-    triangle();
+    const pointSystem = points();
+    triangle(pointSystem);
     player();
-    points();
 });
 
 function points() {
-    const player = getElementById(player)
-    
+    let points = 0;
+
+    function updatePointDisplay() {
+        const pointDiv = document.getElementById("points");
+        if (pointDiv) 
+        {
+            pointDiv.textContent = points;
+        }
+    }
+    function addPoint() {
+        points++;
+        updatePointDisplay();
+    }
+    updatePointDisplay();
+    return {
+        addPoint
+    };
 }
 
-function triangle() {
+function triangle(pointSystem) {
     const triangleSpeed = -7;
     setInterval(spawnTriangle, 1500);
     console.log("1triangle!")
@@ -29,7 +44,16 @@ function triangle() {
             x += triangleSpeed;
             triangle.style.left = `${x}px`;
 
-            if (x > -50)
+            const playerElement = document.getElementById("player");
+            const playerDimensions = playerElement.getBoundingClientRect();
+            const triangleDimensions = triangle.getBoundingClientRect();
+
+            if (triangleDimensions.right < playerDimensions.left) 
+            {
+                pointSystem.addPoint();
+            }
+
+            if (x > -20)
             {
                 requestAnimationFrame(moveTriangle);
             } 
@@ -38,9 +62,7 @@ function triangle() {
                 triangle.remove();
             }
         }
-
         requestAnimationFrame(moveTriangle);
-        
     }
 }
 
