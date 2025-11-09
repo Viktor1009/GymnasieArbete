@@ -99,4 +99,8 @@ div.socials div {
   border-right: 20px solid transparent;
   border-bottom: 35px solid red;
   position: absolute;
+}
+
+#shaperunfast-viewport {
+  overflow: hidden;
 }/*# sourceMappingURL=style.css.map */

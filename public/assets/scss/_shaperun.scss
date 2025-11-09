@@ -17,10 +17,13 @@
     border: 3px solid hotpink;
 }
 .triangle {
-      width: 0;
-      height: 0;
-      border-left: 20px solid transparent;
-      border-right: 20px solid transparent;
-      border-bottom: 35px solid red;
-      position: absolute;
-    }
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 35px solid red;
+    position: absolute;
+}
+#shaperunfast-viewport {
+    overflow: hidden;
+}
