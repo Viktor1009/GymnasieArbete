@@ -17,15 +17,17 @@ function points() {
     function addPoint() { // räknar poängen
         points++;
         updatePointDisplay();
+        
     }
     updatePointDisplay();
     return {
-        addPoint // gör att andra funktioner kan nå add point funktionen 
+        addPoint // gör att andra funktioner kan nå add addpoint funktionen 
     };
 }
 
 function triangle(pointSystem) {
     const triangleSpeed = 7;
+    
     setInterval(spawnTriangle, 1500);
     console.log("1triangle!")
 
@@ -37,25 +39,23 @@ function triangle(pointSystem) {
         triangle.style.bottom = `${y}px`; // bestämer start position av trianglen
         let x = window.innerWidth + 20; // bestämer start position av trianglen
         triangle.style.left = `${x}px`; // bestämer start position av trianglen
-
         document.body.appendChild(triangle);
 
+        let counted = false;
+        
         function moveTriangle() {
             x -= triangleSpeed; // ändrar trianglens x position i samband med konstanten triangle speed
             triangle.style.left = `${x}px`;
 
-            trianglePass(); // registrerar när trianglen har passerat spelaren
-            function trianglePass() {
-                const playerElement = document.getElementById("player");
-                const playerDimensions = playerElement.getBoundingClientRect();
-                const triangleDimensions = triangle.getBoundingClientRect();
-                if (triangleDimensions.right < playerDimensions.left) 
-                {
-                    pointSystem.addPoint();
-                }
-            }
-
+            const triangleDimensions = triangle.getBoundingClientRect();
+            const playerElement = document.getElementById("player");
+            const playerDimensions = playerElement.getBoundingClientRect();
             
+            if (!counted && triangleDimensions.right < playerDimensions.left) // registrerar när trianglen har passerat spelaren och om den annu inte räknats
+            {
+                counted = true;
+                pointSystem.addPoint();
+            }
 
             if (x > -20) // tittar på om trianglen fortfarande befinner sig på skärmen
             {

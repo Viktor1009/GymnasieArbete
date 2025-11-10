@@ -154,18 +154,21 @@ function triangle(scoreSystem) {
 
         document.body.appendChild(triangle);
 
+        const playerElement = document.getElementById("player");
+        const playerRect = playerElement.getBoundingClientRect();
+        
+        let counted = false;
+
         function moveTriangle() {
             x += triangleSpeed;
             triangle.style.left = `${x}px`;
-            
-            const playerElement = document.getElementById("player");
-            const playerRect = playerElement.getBoundingClientRect();
+
             const triangleRect = triangle.getBoundingClientRect();
 
             // Om triangeln passerar spelaren
-            if (triangleRect.right < playerRect.left) 
-            {
+            if (!counted && triangleRect.right < playerRect.left) {
                 scoreSystem.addPoint();
+                counted = true;
             }
 
             if (x > -20) {
