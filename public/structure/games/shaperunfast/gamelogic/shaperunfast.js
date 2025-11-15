@@ -9,15 +9,14 @@ function points() {
 
     function updatePointDisplay() { // updaterar UI:n för poäng
         const pointDiv = document.getElementById("points");
-        if (pointDiv) 
-        {
+        if (pointDiv) {
             pointDiv.textContent = points;
         }
     }
     function addPoint() { // räknar poängen
         points++;
         updatePointDisplay();
-        
+
     }
     updatePointDisplay();
     return {
@@ -27,7 +26,7 @@ function points() {
 
 function triangle(pointSystem) {
     const triangleSpeed = 7;
-    
+
     setInterval(spawnTriangle, 1500);
     console.log("1triangle!")
 
@@ -42,7 +41,7 @@ function triangle(pointSystem) {
         document.body.appendChild(triangle);
 
         let counted = false;
-        
+
         function moveTriangle() {
             x -= triangleSpeed; // ändrar trianglens x position i samband med konstanten triangle speed
             triangle.style.left = `${x}px`;
@@ -50,7 +49,7 @@ function triangle(pointSystem) {
             const triangleDimensions = triangle.getBoundingClientRect();
             const playerElement = document.getElementById("player");
             const playerDimensions = playerElement.getBoundingClientRect();
-            
+
             if (!counted && triangleDimensions.right < playerDimensions.left) // registrerar när trianglen har passerat spelaren och om den annu inte räknats
             {
                 counted = true;
@@ -60,7 +59,7 @@ function triangle(pointSystem) {
             if (x > -20) // tittar på om trianglen fortfarande befinner sig på skärmen
             {
                 requestAnimationFrame(moveTriangle);
-            } 
+            }
             else // om inte, tar bort den
             {
                 triangle.remove();
@@ -75,51 +74,57 @@ function player() {
     let y = parseFloat(getComputedStyle(player).bottom);
     const jumpHeight = 160;
     const jumpSpeed = 10;
-    const gravity = 7;
+    const gravity = -2;
     var isJumping = false;
+    var velocity = 0;
 
     console.log("player!");
 
     document.addEventListener("click", (event) => { // registrerar om man trycker på vänster click
-    if (event.button === 0) {
-        console.log("click!");
-        playerJump();
-    }
+        if (event.button === 0) {
+            console.log("click!");
+            playerJump();
+        }
     });
 
     document.addEventListener("keydown", (event) => { // registrerar om man trycker på space
-    if (event.code === "Space") {
-        event.preventDefault();
-        console.log("space!");
-        playerJump();
-    }
+        if (event.code === "Space") {
+            event.preventDefault();
+            console.log("space!");
+            playerJump();
+        }
     });
 
     function playerJump() {
         if (isJumping) // om spelaren hoppar, vänta på nästa input
         {
             return;
-        } 
+        }
         isJumping = true; // gör att bara en playerJump funktion kan köra i taget
         const startY = y; // sätter fast start positionen
         const peakY = startY + jumpHeight;
         let goingUp = true;
 
         function movePlayer() {
-            if (goingUp) { // spelaren ska gå upp?
-                y += jumpSpeed;
-                if (y >= peakY) {
-                    goingUp = false; // spelaren har nu gått upp
+
+            velocity += gravity;
+            
+            if(goingUp) {
+                velocity = 7 / (y/peakY);
+                if (y > peakY) {
+                    y = peakY;
+                    goingUp = false;
                 }
-            } else { // spelaren är uppe?
-                y -= gravity;
-                if (y <= startY) { // spelaren har nått botten?
+            } else {
+                if(y <= startY) {
                     y = startY;
                     isJumping = false; // hoppar inte längre
                     player.style.bottom = `${y}px`;
+
                     return;
                 }
             }
+            y += velocity
 
             player.style.bottom = `${y}px`;
             requestAnimationFrame(movePlayer);
