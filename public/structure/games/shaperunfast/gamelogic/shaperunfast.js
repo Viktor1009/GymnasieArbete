@@ -1,7 +1,8 @@
 window.addEventListener("DOMContentLoaded", () => {
     const pointSystem = points();
-    triangle(pointSystem);
-    player();
+    const collisionSystem = collision();
+    triangle(pointSystem, collisionSystem);
+    player(collisionSystem);
 });
 
 function points() {
@@ -13,18 +14,39 @@ function points() {
             pointDiv.textContent = points;
         }
     }
+
     function addPoint() { // räknar poängen
         points++;
         updatePointDisplay();
 
     }
+    function deathpointDisplay() {
+        const finalPointsDisplay = document.createElement("div");
+        finalPointsDisplay.textContent = points;
+        deathDiv.appendChild(finalPointsDisplay);
+    }
+    
     updatePointDisplay();
     return {
         addPoint // gör att andra funktioner kan nå add addpoint funktionen 
     };
 }
 
-function triangle(pointSystem) {
+function collision() {
+
+    function deathDisplay() {
+        const deathDiv = document.createElement("div");
+        deathDiv.className = "deathDiv";
+        document.body.appendChild(deathDiv);
+    }
+
+    return {
+        deathDisplay
+        // collisionSystem.deathDisplay();
+    };
+}
+
+function triangle(pointSystem, collisionSystem) {
     const triangleSpeed = 7;
 
     setInterval(spawnTriangle, 1500);
@@ -72,7 +94,7 @@ function triangle(pointSystem) {
 function player() {
     const player = document.getElementById("player");
     let y = parseFloat(getComputedStyle(player).bottom);
-    const jumpHeight = 160;
+    const jumpHeight = 140;
     const jumpSpeed = 10;
     const gravity = -2;
     var isJumping = false;
