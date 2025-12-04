@@ -2,7 +2,7 @@ window.addEventListener("DOMContentLoaded", () => {
     const pointSystem = points();
     const collisionSystem = collision();
     triangle(pointSystem, collisionSystem);
-    player(collisionSystem);
+    player();
 });
 
 function points() {
@@ -20,34 +20,37 @@ function points() {
         updatePointDisplay();
 
     }
-    function deathpointDisplay() {
-        const finalPointsDisplay = document.createElement("div");
-        finalPointsDisplay.textContent = points;
-        deathDiv.appendChild(finalPointsDisplay);
-    }
+    function deathpointDisplay(deathDiv) {
+      const finalPointsDisplay = document.createElement("div");
+      finalPointsDisplay.textContent = points;
+      
+      deathDiv.appendChild(finalPointsDisplay);
+  }
     
     updatePointDisplay();
     return {
-        addPoint // gör att andra funktioner kan nå add addpoint funktionen 
+        addPoint, // gör att andra funktioner kan nå add addpoint funktionen 
+        deathpointDisplay
     };
 }
 
 function collision() {
 
-    function deathDisplay() {
-        const deathDiv = document.createElement("div");
-        deathDiv.className = "deathDiv";
-        document.body.appendChild(deathDiv);
-    }
+  function deathDisplay() {
+      const deathDiv = document.createElement("div");
+      deathDiv.className = "deathDiv";
+      document.body.appendChild(deathDiv);
+      return deathDiv;
+  }
 
-    return {
-        deathDisplay
-        // collisionSystem.deathDisplay();
-    };
+  return {
+      deathDisplay
+  };
 }
 
 function triangle(pointSystem, collisionSystem) {
     const triangleSpeed = 7;
+    let stillAlive = true;
 
     setInterval(spawnTriangle, 1500);
     console.log("1triangle!")
@@ -55,6 +58,7 @@ function triangle(pointSystem, collisionSystem) {
     function spawnTriangle() {
         const triangle = document.createElement("div");
         triangle.className = "triangle";
+        let deadly = true;
 
         const y = window.innerHeight * 0.15; // bestämer start position av trianglen
         triangle.style.bottom = `${y}px`; // bestämer start position av trianglen
@@ -68,19 +72,31 @@ function triangle(pointSystem, collisionSystem) {
             x -= triangleSpeed; // ändrar trianglens x position i samband med konstanten triangle speed
             triangle.style.left = `${x}px`;
 
-            const triangleDimensions = triangle.getBoundingClientRect();
+            const triangleDimension = triangle.getBoundingClientRect();
             const playerElement = document.getElementById("player");
-            const playerDimensions = playerElement.getBoundingClientRect();
+            const playerDimension = playerElement.getBoundingClientRect();
 
-            if (!counted && triangleDimensions.right < playerDimensions.left) // registrerar när trianglen har passerat spelaren och om den annu inte räknats
+            if (!counted && triangleDimension.right < playerDimension.left) // registrerar när trianglen har passerat spelaren och om den annu inte räknats
             {
                 counted = true;
                 pointSystem.addPoint();
             }
 
+            if(deadly && playerDimension.bottom > triangleDimension.top && playerDimension.right > triangleDimension.left) {
+                const deathDiv = collisionSystem.deathDisplay();
+            pointSystem.deathpointDisplay(deathDiv);
+                stillAlive = false;
+            }
+            if (triangleDimension.left < playerDimension.left + 56) {
+                deadly = false;
+            }
+            
+
             if (x > -20) // tittar på om trianglen fortfarande befinner sig på skärmen
             {
-                requestAnimationFrame(moveTriangle);
+                if(stillAlive) {
+                    requestAnimationFrame(moveTriangle);
+                }
             }
             else // om inte, tar bort den
             {
