@@ -21,12 +21,21 @@ function points() {
 
     }
     function deathpointDisplay(deathDiv) {
-      const finalPointsDisplay = document.createElement("div");
-      finalPointsDisplay.textContent = points;
-      
-      deathDiv.appendChild(finalPointsDisplay);
-  }
-    
+        const deathContainer = document.createElement("div");
+        deathContainer.id = "deathMessageContainer";
+
+        const title = document.createElement("h1");
+        title.textContent = "Oh no, you died!";
+
+        const finalScore = document.createElement("p");
+        finalScore.textContent = `Your final score was: ${points} points`;
+
+        deathContainer.appendChild(title);
+        deathContainer.appendChild(finalScore);
+
+        deathDiv.appendChild(deathContainer);
+    }
+
     updatePointDisplay();
     return {
         addPoint, // gör att andra funktioner kan nå add addpoint funktionen 
@@ -73,7 +82,7 @@ function triangle(pointSystem, collisionSystem) {
             triangle.style.left = `${x}px`;
 
             const triangleDimension = triangle.getBoundingClientRect();
-            const playerElement = document.getElementById("player");
+            const playerElement = document.getElementById("SRFplayer");
             const playerDimension = playerElement.getBoundingClientRect();
 
             if (!counted && triangleDimension.right < playerDimension.left) // registrerar när trianglen har passerat spelaren och om den annu inte räknats
@@ -108,7 +117,7 @@ function triangle(pointSystem, collisionSystem) {
 }
 
 function player() {
-    const player = document.getElementById("player");
+    const player = document.getElementById("SRFplayer");
     let y = parseFloat(getComputedStyle(player).bottom);
     const jumpHeight = 140;
     const jumpSpeed = 10;
