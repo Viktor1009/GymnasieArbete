@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kampanjsida</title>
+    <link rel="stylesheet" href="../../../assets/style.css">
+</head>
+<body>
+  <div id="background"></div>
+  <div id="website">
+    <div id="OOPgame-container">
+      <div id="OOPline"></div>
+
+      <script type="module">
+        console.log("kör Script");
+
+        import { GameEngine } from "/public/structure/games/OOP_shaperunfast/gamelogic/game.js";
+
+        const container = document.getElementById("OOPgame-container");
+        const game = new GameEngine({
+          targetFps: 60,
+          targetEl: container
+        });
+      </script>
+    </div>
+  </div>
+</body>
+</html>
+

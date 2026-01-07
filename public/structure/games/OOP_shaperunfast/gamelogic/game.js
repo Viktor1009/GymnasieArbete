@@ -1,15 +1,17 @@
-
 import {Manager} from "./manager.js";
 import {Player} from "./player.js";
 
 export class GameEngine {
   constructor({ targetFps = 60, targetEl = document.body } = {}) {
+    console.log("kör Game");
+    
     this.targetFps = targetFps;
     this.targetEl = targetEl;
     this.deltaTime = 0;
     this.lastTime = 0;
     this.isRunning = false;
     this.frameRequest = null;
+    this.gametime = 30000;
     this.#init();
 
     this.manager; 
@@ -18,8 +20,17 @@ export class GameEngine {
   }
 
   #init() {
-    this.manager = new Manager(this.targetEl);
-    this.player = new Player({parent:this.targetEl, frameCount: 10, width:29, height:39});
+    this.groundPercent = 0.8;
+    this.groundY = this.targetEl.clientHeight * this.groundPercent;
+    
+    this.manager = new Manager(this.targetEl, this.groundY);
+    this.player = new Player({
+      parent: this.targetEl, 
+      frameCount: 10, 
+      width: 50, 
+      height: 50, 
+      groundY: this.groundY
+    });
     this.start();
   }
 
@@ -52,7 +63,7 @@ export class GameEngine {
 
   update(deltaTime) {
     this.manager.update(deltaTime);
-    this.player.update(deltaTime);
+    this.player.update(deltaTime, this.manager.triangles);
   }
 
   draw() {
@@ -60,3 +71,4 @@ export class GameEngine {
     this.player.draw();
   }
 }
+
