@@ -1,5 +1,0 @@
-
-GÖR POÄNG SYSTEM
-fixa ett system som gör att varje triangel bara räknas en gång:
-i triangle funktionen under stället där player defineras gör "let counted = false;"
-i moveTriangle funktionen i poäng if satsen skriv längst ner "counted = true;"
